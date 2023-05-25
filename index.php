@@ -1,3 +1,17 @@
+<?php
+	include "./configuraciones/conexion_bd.php";
+	include "./configuraciones/userlogin.php";
+	session_start();
+	 
+	// Check if the user is already logged in, if yes then redirect him to welcome page
+	if(isset($_SESSION["session_active"]) && $_SESSION["session_active"] === true){
+		header("location: ./secciones/index.php");
+		exit;
+	}
+?>
+				
+				
+				
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,26 +32,14 @@
         <div class="content">
             <div class="title">
                 <h1>Bienvenido <br> de vuelta</h1>
-
                 <p>Ingresa tú usuario y contraseña</p>
-
-                <?php
-                include "./configuraciones/conexion_bd.php";
-                include "./configuraciones/userlogin.php";
-
-                ?>
-
-
             </div>
             <div class="form">
                 <form method="post" action="">
                     <input type="text" placeholder="Nombre de usuario" name="usuario" autocomplete = "off" required pattern="[A-Za-z0-9._-]+" title="Simbolos alfanuméricos._- solamente"  />
                     <input type="password" placeholder="Contraseña" name="password" autocomplete = "off" required/>
                     <button name="botoningresar">Iniciar sesión</button>
-
-
                 </form>
-
                 <a href="preguntaseguridad.php">
                     <button class="simple">Olvidaste tus credenciales?</button>
                 </a>
@@ -47,12 +49,7 @@
         <div class="img-container">
             <img src="src/184.png" class="img">
         </div>
-
     </div>
-
-
-
-
 
     <script>
         let form = document.querySelector('.form input');

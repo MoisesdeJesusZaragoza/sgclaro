@@ -1,16 +1,19 @@
 <?php
-session_start();
+
 if (isset($_POST['botoningresar'])) {
+	session_start();
     if (!empty($_POST["usuario"]) and !empty($_POST["password"])) {
         $usuario = $_POST["usuario"];
         $password = $_POST["password"];
         $sql = $conexion->query("select * from login where usuario='$usuario' and contrasena='".md5($password)."'");
         if ($datos = $sql->fetch_object()) {
+			$_SESSION["session_active"] = true;
             $_SESSION["usuario"] = $datos->usuario;
 			$_SESSION["tipo_usuario"] = $datos->tipo_usuario;
             header("location: ./secciones/index.php");
             mysqli_close($conexion);
         } else {
+			session_destroy();
             echo "<script>
             alert('Usuario o contraseña incorrectos');
         </script>";

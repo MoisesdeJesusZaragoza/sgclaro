@@ -1,8 +1,7 @@
 <?php
 include_once '../configuraciones/conexion_bd.php';
 session_start();
-if (empty($_SESSION["usuario"])) {
-
+if ($_SESSION["session_active"] != true) {
     header("location: ../index.php");
 }
 ?>
@@ -14,32 +13,36 @@ if (empty($_SESSION["usuario"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <META name="viewport" content="width = device-width, initial-scale = 1.0">
-    <title>Admin Dashboard</title>
-
-
-    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
-    <!--<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">-->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/modal.css">
-    <!--<script src="../js/jquery-3.6.0.min.js"></script>-->
+    <link rel="icon" type = "image" href="../favicon.png"> 
+	
+	<!--<script src="../js/jquery-3.6.0.min.js"></script>-->
     <!--link rel="shortcut icon" href="src/1.png"-->
-    <link rel="icon" type = "image" href="/sgclaro/favicon.png"> 
+	<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">-->
+	
+	<title>Admin Dashboard</title>
 </head>
 
 <body>
     <div class="container">
         <!--nav aqui-->
-        <?php $IPATH = $_SERVER["DOCUMENT_ROOT"] . "/sgclaro/cabeceras/";
-        include($IPATH . "header-nav index.html"); ?>
+        <?php //$IPATH = $_SERVER["DOCUMENT_ROOT"] . "/sgclaro/cabeceras/";
+        //include($IPATH . "header-nav index.html"); 
+		include ("../cabeceras/header-nav index.html");
+		?>
+		
         <!--codigo php usado para incluir el header sin necesidad del codigo-->
         <!---main-->
         <div class="main">
             <!--aqui buscar-->
-            <?php $IPATH = $_SERVER["DOCUMENT_ROOT"] . "/sgclaro/cabeceras/";
-            include($IPATH . "nav-sin-buscar index.html"); ?>
+            <?php //$IPATH = $_SERVER["DOCUMENT_ROOT"] . "/sgclaro/cabeceras/";
+            //include($IPATH . "nav-sin-buscar index.html"); 
+			include ("../cabeceras/nav-sin-buscar index.html");?>
             <!--codigo php usado para incluir el header sin necesidad del codigo-->
 
             <!--main content, aqui decides si poner las cards o el item-->
@@ -50,136 +53,123 @@ if (empty($_SESSION["usuario"])) {
             </div>
             <!--en el index iran las cards, es decir, los cuatro botones-->
 			<div class='cardBox'>
-            <!--carta de agregar usuario-->
-            <?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR")
-				echo("
-					<div class='card'>
-						<div>
-							<div class='numbers'>Agregar</div>
-							<div class='cardName'>Usuario</div>
+				<!--carta de agregar usuario-->
+				<?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR"){ ?>
+						<div class='card' data-bs-toggle='modal' data-bs-target='#agregar-usuario'>
+							<div>
+								<div class='numbers'>Agregar</div>
+								<div class='cardName'>Usuario</div>
+							</div>
+							<div class='iconBx'>
+								<button type='button' class='crd-button'>
+									<ion-icon name='people'></ion-icon>
+								</button>
+							</div>
 						</div>
-						<div class='iconBx'>
-							<button type='button' class='crd-button' data-bs-toggle='modal' data-bs-target='#agregar-usuario'>
-								<ion-icon name='people'></ion-icon>
+				<?php } ?>
+				<!--end card-->
+				<!--carta de agregar residente-->
+				<?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR"){ ?>
+					<div class="card" data-bs-toggle="modal" data-bs-target="#agregar-residente">
+						<div>
+							<div class="numbers">Agregar</div>
+							<div class="cardName">Residente</div>
+						</div>
+						<div class="iconBx">
+
+							<button type="button" class="crd-button">
+								<ion-icon name="people-outline"></ion-icon>
 							</button>
 						</div>
 					</div>
-				");
-			?>
-            <!--end card-->
-			<!--carta de agregar residente-->
-                <div class="card">
-                    <div>
-                        <div class="numbers">Agregar</div>
-                        <div class="cardName">Residente</div>
-                    </div>
-                    <div class="iconBx">
-
-                        <button type="button" class="crd-button" data-bs-toggle="modal" data-bs-target="#agregar-residente">
-                            <ion-icon name="people-outline"></ion-icon>
-                        </button>
-
-                    </div>
-
-
-                </div>
-                <!--end card-->
-
-
-
-                <div class="card">
-                    <!--carta de agregar domicilio-->
-                    <div>
-                        <div class="numbers">Agregar</div>
-                        <div class="cardName">Domicilio</div>
-                    </div>
-                    <div class="iconBx">
-
-                        <button type="button" class="crd-button" data-bs-toggle="modal" data-bs-target="#agregar-domicilio">
-                            <ion-icon name="bed-outline"></ion-icon>
-                        </button>
-                    </div>
-                </div>
-                <!--end card-->
-
-                <div class="card">
-                    <!--carta de agregar pago-->
-
-                    <div>
-                        <div class="numbers">Agregar</div>
-                        <div class="cardName">Pago</div>
-                    </div>
-                    <div class="iconBx">
-                        <button type="button" class="crd-button" data-bs-toggle="modal" data-bs-target="#agregar-pago">
-                            <ion-icon name="card-outline"></ion-icon>
-                        </button>
-                    </div>
-                </div>
-                <!--end card-->
-
-                <div class="card">
-                    <!--carta de buscar residente-->
-                    <div>
-                        <div class="numbers">Buscar</div>
-                        <div class="cardName">Residente</div>
-                    </div>
-                    <div class="iconBx">
-                        <a href="vista_res.php">
-                            <button type="button" class="crd-button">
-                                <ion-icon name="search"></ion-icon>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <!--end card-->
-
-                <div class="card">
-                    <!--carta de buscar pago-->
-                    <div>
-                        <div class="numbers">Buscar</div>
-                        <div class="cardName">Pago</div>
-                    </div>
-                    <div class="iconBx">
-                        <a href="vista_pago.php">
-                            <button type="button" class="crd-button">
-                                <ion-icon name="search"></ion-icon>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <!--end card-->
-                <div class="card">
-                    <!--carta de imprimir-->
-
-                    <div>
-                        <div class="numbers">Imprimir</div>
-                        <div class="cardName">Ultimo ticket</div>
-                    </div>
-                    <div class="iconBx">
-                        <a href="recibo.php" target="_blank">
-                            <button type="button" class="crd-button" data-bs-toggle="modal">
-                                <ion-icon name="ticket-outline"></ion-icon>
-                            </button></a>
-
-
-
-                    </div>
-
-
-                </div>
+				<?php } ?>
+				<!--end card-->
+				<!--carta de agregar domicilio-->
+				<?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR"){ ?>
+					<div class="card" data-bs-toggle="modal" data-bs-target="#agregar-domicilio">
+						<div>
+							<div class="numbers">Agregar</div>
+							<div class="cardName">Domicilio</div>
+						</div>
+						<div class="iconBx">
+							<button type="button" class="crd-button">
+								<ion-icon name="bed-outline"></ion-icon>
+							</button>
+						</div>
+					</div>
+				<?php } ?>
+				<!--end card-->
+				<!--carta de agregar pago-->
+					<div class="card" data-bs-toggle="modal" data-bs-target="#agregar-pago">
+						<div>
+							<div class="numbers">Agregar</div>
+							<div class="cardName">Pago</div>
+						</div>
+						<div class="iconBx">
+							<button type="button" class="crd-button">
+								<ion-icon name="card-outline"></ion-icon>
+							</button>
+						</div>
+					</div>
+				<!--end card-->
+				<!--carta de buscar residente-->
+				<?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR"){ ?>
+					<div class="card">
+						<div>
+							<div class="numbers">Buscar</div>
+							<div class="cardName">Residente</div>
+						</div>
+						<div class="iconBx">
+							<a href="vista_res.php">
+								<button type="button" class="crd-button">
+									<ion-icon name="search"></ion-icon>
+								</button>
+							</a>
+						</div>
+					</div>
+				<?php } ?>
+				<!--end card-->
+				<!--carta de buscar pago-->
+					<div class="card">
+						<div>
+							<div class="numbers">Buscar</div>
+							<div class="cardName">Pago</div>
+						</div>
+						<div class="iconBx">
+							<a href="vista_pago.php">
+								<button type="button" class="crd-button">
+									<ion-icon name="search"></ion-icon>
+								</button>
+							</a>
+						</div>
+					</div>
+				<!--end card-->
+				<!--carta de imprimir-->
+					<div class="card" class="crd-button" data-bs-toggle="modal">
+						<div>
+							<div class="numbers">Imprimir</div>
+							<div class="cardName">Ultimo ticket</div>
+						</div>
+						<div class="iconBx">
+							<a href="recibo.php" target="_blank">
+								<button type="button" class="crd-button">
+									<ion-icon name="ticket-outline"></ion-icon>
+								</button></a>
+						</div>
+					</div>
             </div>
             <!--end cardBox-->
-
         </div>
         <!--end main-->
-
     </div>
     <!--end container-->
 
-
     <!--scripts-->
-    <?php $IPATH = $_SERVER["DOCUMENT_ROOT"] . "/sgclaro/cabeceras/";
-    include($IPATH . "scripts-fin.html"); ?>
+    <?php //$IPATH = $_SERVER["DOCUMENT_ROOT"] . "/sgclaro/cabeceras/";
+    //include($IPATH . "scripts-fin.html"); 
+	include ("../cabeceras/scripts-fin.html");
+	?>
+	
     <!--codigo php usado para incluir el header sin necesidad del codigo-->
 	<?php include ("../modals/user_insert_modal.php")?> <!--Adding the Modal for User-->
     <!--------------------------------------------------------- Modal, aqui se agrega el residente------------------------------------------------------------------->
