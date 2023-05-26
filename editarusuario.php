@@ -65,7 +65,7 @@
 
                     <button name="enviar">Actualizar</button>
 
-                    <a href="../index.php">
+                    <a href="index.php">
                         <button>Volver al login</button>
 
                     </a>

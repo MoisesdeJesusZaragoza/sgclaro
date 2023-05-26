@@ -1,4 +1,10 @@
 <?php
+session_start();
+if ($_SESSION["session_active"] != true) {
+    header("location: ../index.php");
+}
+?>
+<?php
 include_once '../configuraciones/conexion_bd.php';
 $id=$_GET['id_'];
 $query_consulta = "SELECT 

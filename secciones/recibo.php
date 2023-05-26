@@ -1,4 +1,10 @@
 <?php
+session_start();
+if ($_SESSION["session_active"] != true) {
+    header("location: ../index.php");
+}
+?>
+<?php
 include_once '../configuraciones/conexion_bd.php';
 $query_consulta = "SELECT 
  c1.ID_PAGO, c1.FCHA_PAGO, c1.MES, c1.MONTO, c1.RECIBIDO, 

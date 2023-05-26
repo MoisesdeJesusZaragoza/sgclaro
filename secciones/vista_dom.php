@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!($_SESSION["tipo_usuario"] == "ADMINISTRADOR" || $_SESSION["tipo_usuario"] == "RESIDENTE")) {
+	header("location: ../index.php");
+}
+?>
+<?php
     include_once '../configuraciones/conexion_bd.php';
     //$query_consulta = "SELECT * FROM titular WHERE NOT inactivo = 1";
     $query_consulta = "SELECT 
@@ -38,11 +44,11 @@
 <body>
     <div class = "container">
         <!--nav aqui-->
-        <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."/sgclaro/cabeceras/"; include($IPATH."header-nav.html"); ?> 
+        <?php include("../cabeceras/header-nav.html"); ?> 
          <!---main-->
         <div class = "main">
             <!--aqui buscar-->
-            <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."/sgclaro/cabeceras/"; include($IPATH."nav-sin-buscar.html"); ?> 
+            <?php include("../cabeceras/nav-sin-buscar.html"); ?> 
 
             <div class = "main-title">
                 <h1 class = "wow-title">Domicilios</h1>

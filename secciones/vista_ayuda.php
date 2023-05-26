@@ -1,3 +1,10 @@
+<?php
+include_once '../configuraciones/conexion_bd.php';
+session_start();
+if ($_SESSION["session_active"] != true) {
+    header("location: ../index.php");
+}
+?>
 <!doctype HTML>
 <html>
 <head>
@@ -9,11 +16,11 @@
 <body>
     <div class = "container">
         <!--nav aqui-->
-        <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."/sgclaro/cabeceras/"; include($IPATH."header-nav.html"); ?> 
+        <?php include("../cabeceras/header-nav.html"); ?> 
          <!---main-->
         <div class = "main">
             <!--aqui buscar-->
-            <?php $IPATH = $_SERVER["DOCUMENT_ROOT"]."/sgclaro/cabeceras/"; include($IPATH."nav-sin-buscar.html"); ?> 
+            <?php include("../cabeceras/nav-sin-buscar.html"); ?> 
 
             <div class = "item" id = "ayuda">
                 <h2>Frequently Asked Questions (FAQs)</h2>

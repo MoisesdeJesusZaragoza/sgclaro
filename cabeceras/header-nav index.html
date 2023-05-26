@@ -12,18 +12,22 @@
                 <span class = "title">Dashboard</span>
             </a>
         </li>
+        <?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR" || $_SESSION["tipo_usuario"]=="RESIDENTE"){ ?>
         <li> 
             <a href = "../secciones/vista_res.php">
                 <span class = "icon"><ion-icon name="people"></ion-icon></span>
                 <span class = "title">Residentes</span>
             </a>
         </li>
+		<?php } ?>
+		<?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR" || $_SESSION["tipo_usuario"]=="RESIDENTE"){ ?>
         <li>
             <a href = "../secciones/vista_dom.php">
                 <span class = "icon"><ion-icon name="bed"></ion-icon></span>
                 <span class = "title">Domicilios</span>
             </a>
         </li>
+		<?php } ?>
         <li>
             <a href = "../secciones/vista_pago.php">
                 <span class = "icon"><ion-icon name="card"></ion-icon></span>
@@ -36,12 +40,14 @@
                 <span class = "title">Ayuda</span>
             </a>
         </li>
+		<?php if($_SESSION["tipo_usuario"]=="ADMINISTRADOR"){ ?>
         <li>
             <a href = "../secciones/papelera.php">
                 <span class = "icon"><ion-icon name="file-tray-stacked"></ion-icon></span>
                 <span class = "title">Papelera</span>
             </a>
         </li>
+		<?php } ?>
         <li>
             <a href = "../configuraciones/cerrarsesion.php">
                 <span class = "icon"><ion-icon name="log-out"></ion-icon></span>
